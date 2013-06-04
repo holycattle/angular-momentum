@@ -1,6 +1,8 @@
 # Welcome to our simple demo server!
 
 express = require 'express' # Import express library
+passport = require 'passport' # Import passport for authentication
+LocalStrategy = require('passport-local').Strategy # Import authentication strategy
 
 # This dummy database only lasts while the server is running.
 # This is only for demonstration. Seriously, don't do anything like this.
@@ -9,11 +11,29 @@ database =
   2: 'This is the second message!'
 databaseLength = 2
 
+# This is just a dummy database of users.
+users =
+  1:
+    email: 'test@momentum.com'
+    first_name: 'Jane'
+    last_name: 'Doe'
+    password: 'password' # This is only for demonstration. Never store your passwords in plain text.
+
+# Setup Passport to use an authentication Strategy for accounts stored in a database, as opposed to using Facebook, Twitter, etc.
+passport.use new LocalStrategy (username, password, done) ->
+  for key, user in users
+    if user[key].email == username and user[key].password == password
+      user_exists = true
+      return done(null, user)
+
+  return done(null, false, { message: 'Incorrect username or password.' })
 
 app = express() # Create an express application
 app.use express.logger('dev') # Enable logging
 app.use express.bodyParser() # Enable parsing POST parameters
 app.use app.router # Use routing
+app.use passport.initialize() # For server-side authentication
+app.use passport.session()
 
 # Function that maps to HTTP GET requests
 # Example: accessing localhost:8080/api/messages/1
@@ -64,6 +84,27 @@ app.delete '/api/messages/:id', (request, response, next) ->
   else
     next new Error('Message does not exist')
 
+serializeUser = (user) ->
+  last_name = user.last_name
+  first_name = user.first_name
+  email = user.email
+
+# RESTful authentication; performs authentication when the client does a POST request to localhost:8080/api/session
+app.post '/api/session',
+  passport.authenticate('local'),
+  (req, res) ->
+    res.json serializeUser req.user
+
+app.get '/api/session', (req, res) ->
+  if req.user
+    res.json serializeUser req.user
+  else
+    res.send 403
+
+# Log user out when the server receives a DELETE request
+app.delete '/api/session', (req, res) ->
+  req.logout()
+  res.send 200
   
 # Serve frontend directory as static files
 app.use express.static(__dirname+'/../frontend/')
