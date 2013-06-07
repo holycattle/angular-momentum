@@ -1,0 +1,16 @@
+html
+  head
+    title Login - Angular Momentum
+    link(href='/lib/bootstrap/css/bootstrap.css', rel='stylesheet')
+    link(href='/lib/bootstrap/css/bootstrap-responsive.css', rel='stylesheet')
+    link(href='/css/styles.css', rel='stylesheet')
+    script(src='/lib/jquery-1.9.1.js')
+    script(src='/lib/bootstrap/js/bootstrap.js')
+
+  body
+    .container.login-form-container.pull-left
+      form.login-form
+        h2.login-form-heading Login
+          input.input-block-level(type="text", placeholder="E-mail address", ng-model="email")
+          input.input-block-level(type="password", placeholder="Password", ng-model="password")
+          button.btn.btn-large.btn-primary(type="submit") Login
