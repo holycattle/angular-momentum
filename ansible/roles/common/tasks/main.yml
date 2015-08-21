@@ -1,0 +1,20 @@
+---
+
+- name: Install git
+  apt: name=git state=latest
+
+- name: Install system packages for urllib3[secure]
+  apt: name={{item}} state=latest
+  with_items:
+    - libssl-dev
+    - libffi-dev
+
+- name: Install urllib3 and secure optional dependencies
+  pip: name=urllib3[secure] extra_args='-U'
+
+- name: Install SNI dependencies for urllib3
+  pip: name={{item}}
+  with_items:
+    - pyopenssl
+    - ndg-httpsclient
+    - pyasn1

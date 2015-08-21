@@ -1,0 +1,110 @@
+---
+## ANXS.timezone
+timezone_zone: UTC
+
+## ANXS.postgresql
+postgresql_version: 9.4
+postgresql_admin_user: "momentum_admin" # security through obscurity
+
+# default installation is batteries-included
+postgresql_install_postgis: yes
+postgresql_install_dev_headers: yes
+postgresql_install_contrib: yes
+
+postgresql_databases:
+  - name: momentum
+    hstore: yes
+    uuid_oosp: yes
+
+postgresql_users:
+  - name: momentum
+    pass: 2bd278ec5b1f46e9a4b490ec5aa184012aab88c3f2cec3f8 # You are expected to change this
+    encrypted: no
+
+postgresql_user_privileges
+  - name: momentum
+    db: momentum
+    priv: "ALL"
+
+postgresql_pgtune: yes
+postgresql_pgtune_type: Web
+
+## ANXS.nginx
+nginx_install_method: "package"
+nginx_charset: 'utf8'
+nginx_www_dir: "/var/www"
+
+nginx_gzip_types:
+  - text/plain
+  - text/css
+  - text/xml
+  - text/csv
+  - text/javascript
+  - application/x-javascript
+  - application/xml
+  - application/xml+rss
+  - application/javascript
+  - application/postscript
+  - application/pdf
+  - application/ecmascript
+  - application/json
+  - image/svg+xml
+  - font/opentype
+  - application/x-font-ttf
+
+## willshersystems.sshd
+# NOTE: You will want to add in an AllowUsers stanza for remote servers.
+sshd:
+  Port: "22"
+  AddressFamily: "any"
+  Protocol: "2"
+  UsePrivilegeSeparation: "yes"
+  KeyRegenerationInterval: "3600"
+  ServerKeyBits: "1024"
+  SyslogFacility: "AUTH"
+  LogLevel: "INFO"
+  LoginGraceTime: "120"
+  PermitRootLogin: "no"
+  StrictModes: "yes"
+  MaxAuthTries: "6"
+  MaxSessions: "10"
+  RSAAuthentication: "yes"
+  PubkeyAuthentication: "yes"
+  AuthorizedKeysFile: "%h/.ssh/authorized_keys"
+  IgnoreRhosts: "yes"
+  RhostsRSAAuthentication: "no"
+  HostbasedAuthentication: "no"
+  IgnoreUserKnownHosts: "no"
+  PermitEmptyPasswords: "no"
+  ChallengeResponseAuthentication: "no"
+  PasswordAuthentication: "no"
+  KerberosAuthentication: "no"
+  KerberosOrLocalPasswd: "yes"
+  KerberosTicketCleanup: "yes"
+  GSSAPIAuthentication: "no"
+  GSSAPICleanupCredentials: "yes"
+  X11Forwarding: "no"
+  X11DisplayOffset: "10"
+  X11UseLocalhost: "yes"
+  PrintMotd: "no"
+  PrintLastLog: "yes"
+  TCPKeepAlive: "yes"
+  UseLogin: "no"
+  MaxStartups: "10:30:100"
+  Banner: "none"
+  AcceptEnv: "LANG LC_*"
+  Subsystem: "sftp /usr/lib/openssh/sftp-server"
+  UsePAM: "yes"
+  UseDNS: "no"
+  AllowAgentForwarding: "yes"
+  AllowTcpForwarding: "yes"
+  GatewayPorts: "no"
+  ClientAliveInterval: "600"
+  ClientAliveCountMax: "6"
+  PermitUserEnvironment: "no"
+  Compression: "delayed"
+  PidFile: "/var/run/sshd.pid"
+  PermitTunnel: "no"
+  ChrootDirectory: "none"
+  Ciphers: "blowfish-cbc,aes256-cbc,aes256-ctr"
+  MACs: "hmac-sha2-256,hmac-sha2-512"

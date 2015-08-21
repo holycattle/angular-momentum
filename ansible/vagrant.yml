@@ -1,0 +1,37 @@
+---
+
+- hosts: vagrant
+  user: vagrant
+  sudo: true
+  roles:
+    - role: ANXS.timezone
+      tags: timezone
+    - role: bennojoy.ntp
+      tags: ntp
+    - role: ANXS.hostname
+      tags: hostname
+    - role: ANXS.vim
+      tags: vim
+    - role: ANXS.apt
+      tags: apt
+    - role: ANXS.utilities
+      tags: utilities
+    - role: ANXS.build-essential
+      tags: build-essential
+    - role: tersmitten.fail2ban
+      tags: [fail2ban, hardening]
+    - role: willshersystems.sshd
+      tags: [sshd, hardening]
+    - role: ANXS.tmpreaper
+      tags: tmpreaper
+    - role: ANXS.python
+      tags: python
+    - role: common
+      tags: common
+
+    - role: ANXS.postgresql
+      tags: postgresql
+    - role: ANXS.nginx
+      tags: nginx
+    - role: supervisord
+      tags: supervisord
