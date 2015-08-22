@@ -1,0 +1,26 @@
+{
+  "name": "angular_momentum",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kalibrr/angular-momentum",
+  "authors": [
+    "Kevin Charles Atienza <kevin.charles.atienza@gmail.com>",
+    "Tim Dumol <tim@timdumol.com>",
+    "Payton Robin Yao <payton.yao@gmail.com>"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/assets/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.4.4",
+    "bootstrap-sass": "~3.3.5",
+    "jquery": "~2.1.4",
+    "ui-bootstrap": "~0.13.3",
+    "ui-utils": "~3.0.0"
+  }
+}
