@@ -4,12 +4,12 @@ timezone_zone: UTC
 
 ## ANXS.postgresql
 postgresql_version: 9.4
-postgresql_admin_user: "momentum_admin" # security through obscurity
+postgresql_admin_user: postgres
 
 # default installation is batteries-included
-postgresql_install_postgis: yes
-postgresql_install_dev_headers: yes
-postgresql_install_contrib: yes
+postgresql_ext_install_postgis: yes
+postgresql_ext_install_dev_headers: yes
+postgresql_ext_install_contrib: yes
 
 postgresql_databases:
   - name: momentum
@@ -21,13 +21,12 @@ postgresql_users:
     pass: 2bd278ec5b1f46e9a4b490ec5aa184012aab88c3f2cec3f8 # You are expected to change this
     encrypted: no
 
-postgresql_user_privileges
+postgresql_user_privileges:
   - name: momentum
     db: momentum
     priv: "ALL"
 
-postgresql_pgtune: yes
-postgresql_pgtune_type: Web
+postgresql_pgtune: no
 
 ## ANXS.nginx
 nginx_install_method: "package"

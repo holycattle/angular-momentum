@@ -35,3 +35,5 @@
       tags: nginx
     - role: supervisord
       tags: supervisord
+    - role: backend
+      tags: backend

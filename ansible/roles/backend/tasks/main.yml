@@ -1,0 +1,9 @@
+---
+- name: Install gevent deps
+  apt: name=python-gevent state=build-dep
+
+- name: Install backend Python dependencies
+  pip: requirements=/var/www/angular-momentum/backend/requirements.txt virtualenv=/var/www/angular-momentum/virtualenv
+
+- name: Install backend package
+  pip: name=/var/www/angular-momentum/backend virtualenv=/var/www/angular-momentum/virtualenv extra_args='--editable'
