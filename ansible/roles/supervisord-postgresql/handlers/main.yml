@@ -1,0 +1,3 @@
+---
+- name: Restart PostgreSQL
+  supervisorctl: name=postgresql state=restarted

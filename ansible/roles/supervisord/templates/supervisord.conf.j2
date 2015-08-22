@@ -1,0 +1,19 @@
+[supervisord]
+nodaemon = true
+logfile = /var/log/supervisord.log
+
+[unix_http_server]
+file = /tmp/supervisord.sock
+username = supervisor
+password = 999cc04ef0930389fe2b62a00c171bb30f010ffc80bc23db780cd23961da3b80
+
+[supervisorctl]
+serverurl = unix:///tmp/supervisord.sock
+username = supervisor
+password = 999cc04ef0930389fe2b62a00c171bb30f010ffc80bc23db780cd23961da3b80
+
+[include]
+files = /etc/supervisord.conf.d/*
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface

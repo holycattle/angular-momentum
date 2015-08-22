@@ -1,3 +1,19 @@
 ---
 - name: Install supervisord
-  pip: name='supervisord>3.1.3,<4.0.0'
+  pip: name='supervisor>=3.1.3,<4.0.0'
+
+- name: Install supervisor conf file
+  template: src=supervisord.conf.j2 dest=/etc/supervisord.conf owner=root group=root mode=0600
+  notify: Restart supervisord
+
+- name: Install supervisord upstart service
+  template: src=supervisord-upstart.conf.j2 dest=/etc/init/supervisord.conf owner=root group=root mode=0600
+
+- name: Create supervisord.conf.d directory
+  file: state=directory path=/etc/supervisord.conf.d owner=root group=root mode=0700
+
+- name: Create supervisord log directory
+  file: state=directory path=/var/log/supervisord owner=root group=root mode=0755
+
+- name: Ensure supervisord is running
+  service: name=supervisord state=started enabled=yes

@@ -1,0 +1,7 @@
+---
+- name: Install Nginx supervisord configuraton
+  template: src=nginx-supervisord.conf.j2 dest=/etc/supervisord.conf.d/nginx.conf owner=root group=root mode=0600
+  notify: Restart Nginx
+  
+- name: Make sure Nginx is running
+  supervisorctl: name=nginx state=started

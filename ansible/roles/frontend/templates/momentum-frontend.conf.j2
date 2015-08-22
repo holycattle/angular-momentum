@@ -1,0 +1,27 @@
+{# This will serve direct HTTPS requests (should not usually happen #}
+server {
+  listen 80 default_server;
+  server_name angular-momentum;
+  error_log /var/log/nginx/momentum.error.log;
+  access_log /var/log/nginx/momentum.access.log;
+
+  root /var/www/angular-momentum/frontend/build/;
+
+  location /assets {
+    expires 0;
+  }
+
+  location /api {
+    rewrite ^/api/?(.*)$ /$1 break;
+    proxy_set_header        X-Real-IP       $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_pass http://localhost:8000;
+    proxy_set_header Host $host;
+  }
+
+  location = /favicon.ico {}
+
+  location / {
+    rewrite ^.*$ /index.html break;
+  }
+}

@@ -7,3 +7,9 @@
 
 - name: Install backend package
   pip: name=/var/www/angular-momentum/backend virtualenv=/var/www/angular-momentum/virtualenv extra_args='--editable'
+
+- name: Install supervisor service
+  template: src=momentum-backend-supervisord.conf.j2 dest=/etc/supervisord.conf.d/momentum-backend.conf owner=root group=root mode=0600
+
+- name: Ensure the backend is running
+  supervisorctl: name=momentum-backend state=started

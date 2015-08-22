@@ -32,6 +32,8 @@ postgresql_pgtune: no
 nginx_install_method: "package"
 nginx_charset: 'utf8'
 nginx_www_dir: "/var/www"
+nginx_default_enable: no
+nginx_daemon_disable: yes
 
 nginx_gzip_types:
   - text/plain

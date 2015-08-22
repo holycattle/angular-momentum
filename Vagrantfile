@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
   end
   
   config.vm.synced_folder ".", "/home/vagrant/angular-momentum/"
-  config.vm.synced_folder ".", "/var/www/angular-momentum/"
+  config.vm.synced_folder ".", "/var/www/angular-momentum/", owner: 'www-data', group: 'www-data'
   
   config.vm.network :private_network, ip: "172.16.0.41"
   config.vm.network :forwarded_port, guest: 80, host: 8000 # Nginx

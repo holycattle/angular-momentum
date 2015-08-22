@@ -35,5 +35,11 @@
       tags: nginx
     - role: supervisord
       tags: supervisord
+    - role: supervisord-postgresql
+      tags: [postgresql, supervisord]
+    - role: supervisord-nginx
+      tags: [nginx, supervisord]
     - role: backend
       tags: backend
+    - role: frontend
+      tags: frontend

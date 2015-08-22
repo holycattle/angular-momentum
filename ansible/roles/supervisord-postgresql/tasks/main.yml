@@ -1,0 +1,10 @@
+---
+- name: Install PostgreSQL supervisord configuraton
+  template: src=postgresql-supervisord.conf.j2 dest=/etc/supervisord.conf.d/postgresql.conf owner=root group=root mode=0600
+  notify: Restart PostgreSQL
+
+- name: Disable the default PostgreSQL service
+  service: name=postgresql state=stopped enabled=no
+
+- name: Make sure PostgreSQL is running
+  supervisorctl: name=postgresql state=started
