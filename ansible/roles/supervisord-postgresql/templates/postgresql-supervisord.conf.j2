@@ -3,4 +3,4 @@ command=/usr/lib/postgresql/9.4/bin/postgres -D /var/lib/postgresql/9.4/main -c 
 user=postgres
 autorestart=true
 stdout_logfile = /var/log/supervisord/%(program_name)s.log
-stdout_logfile = /var/log/supervisord/%(program_name)s.error.log
+stderr_logfile = /var/log/supervisord/%(program_name)s.error.log

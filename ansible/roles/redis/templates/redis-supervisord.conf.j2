@@ -1,6 +1,6 @@
-[program:momentum-backend]
-command=/var/www/angular-momentum/backend/scripts/start-server.sh
-user=www-data
+[program:redis]
+command=/usr/bin/redis-server
+user=redis
 autorestart=true
 stdout_logfile = /var/log/supervisord/%(program_name)s.log
 stderr_logfile = /var/log/supervisord/%(program_name)s.error.log

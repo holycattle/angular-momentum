@@ -1,0 +1,28 @@
+---
+- name: Add redis ppa
+  apt_repository: repo='ppa:chris-lea/redis-server'
+  
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+  tags: redis
+
+- name: Install redis-server
+  apt: pkg=redis-server=3:3.0.3-2chl1~trusty1 state=present
+  tags: redis
+
+- name: Install redis-tools
+  apt: pkg=redis-tools=3:3.0.3-2chl1~trusty1 state=present
+  tags: redis
+
+- name: Ensure redis directory exists and has right permissions
+  file: path=/etc/redis state=directory owner=redis group=redis mode="0755" recurse=yes
+  tags: redis
+
+- name: Install redis configuration
+  template: src=redis.conf.j2 dest=/etc/redis/redis.conf owner=redis group=redis mode=0600
+
+- name: Install redis configuration for supervisord
+  template: src=redis-supervisord.conf.j2 dest=/etc/supervisord.conf.d/redis.conf owner=root group=root mode=0600
+
+- name: Ensure redis server is restarted
+  supervisorctl: name=redis state=restarted

@@ -39,6 +39,8 @@
       tags: [postgresql, supervisord]
     - role: supervisord-nginx
       tags: [nginx, supervisord]
+    - role: redis
+      tags: redis
     - role: backend
       tags: backend
     - role: frontend
