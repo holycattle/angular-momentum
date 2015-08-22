@@ -8,6 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var jade = require('gulp-jade');
 var autoprefixer = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
+var notify = require('gulp-notify');
 
 var libFiles = [
     'jquery/dist/jquery.js',
@@ -21,12 +22,24 @@ libFiles = _.map(libFiles, function (x) { return 'src/assets/lib/' + x; });
 gulp.task('static', function() {
     gulp.src('src/assets/img/**/*')
         .pipe(cache('img', {optimizeMemory: true}))
+        .pipe(notify({
+            message: 'IMG: Created <%= file.relative %> and maybe others.',
+            onLast: true
+        }))
         .pipe(gulp.dest('build/assets/img'));
     gulp.src('src/assets/lib/**/*')
         .pipe(cache('lib', {optimizeMemory: true}))
+        .pipe(notify({
+            message: 'LIB: Created <%= file.relative %> and maybe others.',
+            onLast: true
+        }))
         .pipe(gulp.dest('build/assets/lib'));
     gulp.src('src/assets/fonts/**/*')
         .pipe(cache('fonts', {optimizeMemory: true}))
+        .pipe(notify({
+            message: 'FONTS: Created <%= file.relative %> and maybe others.',
+            onLast: true
+        }))
         .pipe(gulp.dest('build/assets/fonts'));
 });
 
@@ -35,6 +48,9 @@ gulp.task('js-lib', function() {
         .pipe(sourcemaps.init())
         .pipe(concat('lib.js'))
         .pipe(sourcemaps.write())
+        .pipe(notify({
+            message: 'JS-LIB: Created <%= file.relative %>.'
+        }))
         .pipe(gulp.dest('build/assets/js'))
 });
 
@@ -47,6 +63,9 @@ gulp.task('ts', function() {
     tsResult.js
         .pipe(concat('app.js'))
         .pipe(sourcemaps.write())
+        .pipe(notify({
+            message: 'TS: Created <%= file.relative %>.'
+        }))
         .pipe(gulp.dest('build/assets/js'));
 });
 
@@ -59,15 +78,25 @@ gulp.task('sass', function() {
         )
         .pipe(autoprefixer())
         .pipe(minifyCss())
+        .pipe(notify({
+            message: 'SASS: Created <%= file.relative %>.'
+        }))
         .pipe(gulp.dest('build/assets/css'));
 });
 
 gulp.task('jade', function() {
     gulp.src('src/assets/html/**/*.jade')
         .pipe(jade())
+        .pipe(notify({
+            message: 'JADE: Created <%= file.relative %> and maybe others.',
+            onLast: true
+        }))
         .pipe(gulp.dest('build/assets/html'));
     gulp.src('src/index.jade')
         .pipe(jade())
+        .pipe(notify({
+            message: 'JADE: Created <%= file.relative %>.'
+        }))
         .pipe(gulp.dest('build'));
 });
 
