@@ -25,6 +25,9 @@ gulp.task('static', function() {
     gulp.src('src/assets/lib/**/*')
         .pipe(cache('lib', {optimizeMemory: true}))
         .pipe(gulp.dest('build/assets/lib'));
+    gulp.src('src/assets/fonts/**/*')
+        .pipe(cache('fonts', {optimizeMemory: true}))
+        .pipe(gulp.dest('build/assets/fonts'));
 });
 
 gulp.task('js-lib', function() {
@@ -71,6 +74,7 @@ gulp.task('jade', function() {
 gulp.task('watch', function() {
     gulp.watch('src/assets/img/**/*', ['static']);
     gulp.watch('src/assets/lib/**/*', ['static']);
+    gulp.watch('src/assets/fonts/**/*', ['static']);
     gulp.watch('src/assets/lib/**/*', ['js-lib']);
     gulp.watch('src/assets/js/**/*.ts', ['ts']);
     gulp.watch('src/assets/css/**/*.scss', ['sass']);
@@ -78,4 +82,6 @@ gulp.task('watch', function() {
     gulp.watch('src/index.jade', ['jade']);
 });
 
-gulp.task('default', ['ts', 'js-lib', 'static', 'sass', 'jade'], function() {});
+gulp.task('build', ['ts', 'js-lib', 'static', 'sass', 'jade']);
+
+gulp.task('default', ['build', 'watch']);

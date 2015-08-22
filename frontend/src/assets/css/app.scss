@@ -1,7 +1,7 @@
 $fa-font-path: '/assets/lib/font-awesome/fonts';
 @import "../lib/font-awesome/scss/font-awesome.scss";
 @import "../lib/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "../lib/bootstrap-material-design/sass/material.scss";
 
-body {
-  font-size: 16px;
-}
+@import "fonts";
+@import "base";
